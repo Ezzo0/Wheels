@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "6xBsIcpVcnVEJYsnEQjXY9xgDrBqzVvQm3wtpOwbPoI=",
+  "Source": "CarRentalWebAPI",
+  "BasePath": "_content/CarRentalWebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
