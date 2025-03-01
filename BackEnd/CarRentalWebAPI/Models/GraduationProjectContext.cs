@@ -33,7 +33,6 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
 
     public virtual DbSet<UserDocument> UserDocuments { get; set; }
 
-    public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,9 +42,7 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
 
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getutcdate())");
 
-            entity.HasOne(d => d.UserTypeNavigation).WithMany(p => p.ApplicationUsers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Applicati__UserT__4222D4EF");
+            
         });
 
         modelBuilder.Entity<Booking>(entity =>
@@ -137,10 +134,7 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
                 .HasConstraintName("FK__UserDocum__UserI__47DBAE45");
         });
 
-        modelBuilder.Entity<UserType>(entity =>
-        {
-            entity.HasKey(e => e.UserType1).HasName("PK__UserType__87E786908DCF13CF");
-        });
+       
 
         //OnModelCreatingPartial(modelBuilder);
         base.OnModelCreating(modelBuilder);

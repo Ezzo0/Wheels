@@ -20,7 +20,6 @@ public partial class ApplicationUser:IdentityUser
     [StringLength(100)]
     public string LastName { get; set; }
 
-    public int UserType { get; set; }
 
     public bool IsVerified { get; set; }
 
@@ -41,7 +40,5 @@ public partial class ApplicationUser:IdentityUser
     [InverseProperty("User")]
     public virtual ICollection<UserDocument> UserDocuments { get; set; } = new List<UserDocument>();
 
-    [ForeignKey("UserType")]
-    [InverseProperty("ApplicationUsers")]
-    public virtual UserType UserTypeNavigation { get; set; }
+    public enum Roles { Admin , User }
 }

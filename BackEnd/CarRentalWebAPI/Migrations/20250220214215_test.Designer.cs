@@ -4,6 +4,7 @@ using CarRentalWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRentalWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250220214215_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,6 +101,9 @@ namespace CarRentalWebAPI.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id")
                         .HasName("PK__Applicat__3214EC0737B9C5D2");
 
@@ -108,6 +114,8 @@ namespace CarRentalWebAPI.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UserType");
 
                     b.HasIndex(new[] { "Email" }, "UQ__Applicat__A9D10534AE2E3DED")
                         .IsUnique()
@@ -207,15 +215,21 @@ namespace CarRentalWebAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LicensePlate")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("NumberOfReviews")
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
@@ -227,8 +241,7 @@ namespace CarRentalWebAPI.Migrations
                     b.HasIndex("OwnerId");
 
                     b.HasIndex(new[] { "LicensePlate" }, "UQ__Cars__026BC15C85E7F6FB")
-                        .IsUnique()
-                        .HasFilter("[LicensePlate] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Cars");
                 });
@@ -379,6 +392,26 @@ namespace CarRentalWebAPI.Migrations
                     b.ToTable("UserDocuments");
                 });
 
+            modelBuilder.Entity("CarRentalWebAPI.Models.UserType", b =>
+                {
+                    b.Property<int>("UserType1")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("UserType");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserType1"));
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("UserType1")
+                        .HasName("PK__UserType__87E786908DCF13CF");
+
+                    b.ToTable("UserTypes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -512,6 +545,17 @@ namespace CarRentalWebAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CarRentalWebAPI.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("CarRentalWebAPI.Models.UserType", "UserTypeNavigation")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("UserType")
+                        .IsRequired()
+                        .HasConstraintName("FK__Applicati__UserT__4222D4EF");
+
+                    b.Navigation("UserTypeNavigation");
+                });
+
             modelBuilder.Entity("CarRentalWebAPI.Models.Booking", b =>
                 {
                     b.HasOne("CarRentalWebAPI.Models.BookingStatus", "BookingStatusNavigation")
@@ -544,6 +588,7 @@ namespace CarRentalWebAPI.Migrations
                     b.HasOne("CarRentalWebAPI.Models.ApplicationUser", "Owner")
                         .WithMany("Cars")
                         .HasForeignKey("OwnerId")
+                        .IsRequired()
                         .HasConstraintName("FK__Cars__OwnerId__52593CB8");
 
                     b.Navigation("Owner");
@@ -670,6 +715,11 @@ namespace CarRentalWebAPI.Migrations
             modelBuilder.Entity("CarRentalWebAPI.Models.DocumentType", b =>
                 {
                     b.Navigation("UserDocuments");
+                });
+
+            modelBuilder.Entity("CarRentalWebAPI.Models.UserType", b =>
+                {
+                    b.Navigation("ApplicationUsers");
                 });
 #pragma warning restore 612, 618
         }

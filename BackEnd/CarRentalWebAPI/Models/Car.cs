@@ -4,43 +4,42 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalWebAPI.Models;
 
 [Index("LicensePlate", Name = "UQ__Cars__026BC15C85E7F6FB", IsUnique = true)]
+[ModelMetadataType(typeof(CarMetaData))]
 public partial class Car
 {
     [Key]
     public Guid CarId { get; set; }
 
-    [Required]
-    [StringLength(450)]
+    
     public string OwnerId { get; set; }
 
-    [Required]
-    [StringLength(500)]
+    
     public string Model { get; set; }
 
     public int Year { get; set; }
 
-    [Required]
-    [StringLength(20)]
+    
     public string LicensePlate { get; set; }
 
     [Column(TypeName = "decimal(10, 2)")]
     public decimal DailyPrice { get; set; }
 
-    public bool IsAvailable { get; set; }
+    public bool IsAvailable { get; set; } = true;
 
     [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
-    public double CarCurrentRate { get; set; }
+    public double CarCurrentRate { get; set; } = 0;
 
-    public int NumberOfReviews { get; set; }
+    public int NumberOfReviews { get; set; } = 0;
 
     [InverseProperty("Car")]
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
@@ -48,4 +47,6 @@ public partial class Car
     [ForeignKey("OwnerId")]
     [InverseProperty("Cars")]
     public virtual ApplicationUser Owner { get; set; }
+
+    
 }
