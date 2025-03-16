@@ -36,7 +36,7 @@ const IconSection = () => {
                 <MyBox
                     icon={<WorkspacePremiumOutlinedIcon fontSize="large" />}
                     title={"Money Guarantee"}
-                    subTitle={"2 hours Back"}
+                    subTitle={"Sending money to owner directly"}
                 />
                 <MyBox
                     icon={<AccessAlarmOutlinedIcon fontSize="large" />}
