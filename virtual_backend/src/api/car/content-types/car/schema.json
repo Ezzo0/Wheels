@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cars",
+  "info": {
+    "singularName": "car",
+    "pluralName": "cars",
+    "displayName": "car"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "carImg": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    },
+    "carTitle": {
+      "type": "string",
+      "required": true
+    },
+    "carPrice": {
+      "type": "decimal",
+      "required": true
+    },
+    "carDesc": {
+      "type": "text",
+      "required": true
+    },
+    "carRating": {
+      "type": "decimal",
+      "required": true
+    },
+    "carType": {
+      "type": "enumeration",
+      "enum": [
+        "electric",
+        "hybrid",
+        "gas"
+      ],
+      "required": true
+    }
+  }
+}
