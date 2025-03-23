@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "6xBsIcpVcnVEJYsnEQjXY9xgDrBqzVvQm3wtpOwbPoI=",
+  "Hash": "6h9MT6r4Lyxmi8gSJ+f0gBgniFtnkmSN1pBNFKJ/1GM=",
   "Source": "CarRentalWebAPI",
   "BasePath": "_content/CarRentalWebAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CarRentalWebAPI\\wwwroot",
+      "Source": "CarRentalWebAPI",
+      "ContentRoot": "D:\\الكلية\\رابعة\\Graduation Project\\Wheels\\BackEnd\\CarRentalWebAPI\\wwwroot\\",
+      "BasePath": "_content/CarRentalWebAPI",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

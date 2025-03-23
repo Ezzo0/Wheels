@@ -26,19 +26,9 @@ public partial class ApplicationUser:IdentityUser
     [Column(TypeName = "datetime")]
     public DateTime CreatedDate { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? LastLogin { get; set; }
-
     public bool IsDeleted { get; set; }
 
     [InverseProperty("User")]
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-    [InverseProperty("Owner")]
-    public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
-
-    [InverseProperty("User")]
-    public virtual ICollection<UserDocument> UserDocuments { get; set; } = new List<UserDocument>();
-
-    public enum Roles { Admin , User }
 }

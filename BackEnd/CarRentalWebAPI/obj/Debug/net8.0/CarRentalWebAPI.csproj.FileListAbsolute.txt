@@ -150,3 +150,5 @@ D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\obj
 D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\obj\Debug\net8.0\CarRentalWebAPI.pdb
 D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\obj\Debug\net8.0\CarRentalWebAPI.genruntimeconfig.cache
 D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\obj\Debug\net8.0\ref\CarRentalWebAPI.dll
+D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\bin\Debug\net8.0\CarRentalWebAPI.staticwebassets.runtime.json
+D:\الكلية\رابعة\Graduation Project\Wheels\BackEnd\CarRentalWebAPI\bin\Debug\net8.0\Microsoft.Spatial.dll

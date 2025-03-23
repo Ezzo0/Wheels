@@ -6,9 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 public partial class CarMetaData
 {
 
-    [Required]
-    [StringLength(450)]
-    public string OwnerId { get; set; }
 
     [Required]
     [StringLength(500)]

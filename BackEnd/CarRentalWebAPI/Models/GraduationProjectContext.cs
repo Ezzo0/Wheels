@@ -23,7 +23,6 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
 
     public virtual DbSet<Car> Cars { get; set; }
 
-    public virtual DbSet<DocumentType> DocumentTypes { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
@@ -31,7 +30,6 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
 
     public virtual DbSet<Review> Reviews { get; set; }
 
-    public virtual DbSet<UserDocument> UserDocuments { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,8 +39,6 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(e => e.Id).HasName("PK__Applicat__3214EC0737B9C5D2");
 
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getutcdate())");
-
-            
         });
 
         modelBuilder.Entity<Booking>(entity =>
@@ -78,15 +74,10 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getutcdate())");
             entity.Property(e => e.IsAvailable).HasDefaultValue(true);
 
-            entity.HasOne(d => d.Owner).WithMany(p => p.Cars)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Cars__OwnerId__52593CB8");
+            
         });
 
-        modelBuilder.Entity<DocumentType>(entity =>
-        {
-            entity.HasKey(e => e.DocumentType1).HasName("PK__Document__B987255BE8FB0C88");
-        });
+     
 
         modelBuilder.Entity<Payment>(entity =>
         {
@@ -117,22 +108,6 @@ public partial class ApplicationContext : IdentityDbContext<ApplicationUser>
                 .HasConstraintName("FK__Reviews__Booking__6A30C649");
         });
 
-        modelBuilder.Entity<UserDocument>(entity =>
-        {
-            entity.HasKey(e => e.DocumentId).HasName("PK__UserDocu__1ABEEF0FF8AA2080");
-
-            entity.Property(e => e.DocumentId).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.UploadDate).HasDefaultValueSql("(getutcdate())");
-            entity.Property(e => e.VerificationResult).HasDefaultValueSql("(NULL)");
-
-            entity.HasOne(d => d.DocumentTypeNavigation).WithMany(p => p.UserDocuments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__UserDocum__Docum__48CFD27E");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UserDocuments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__UserDocum__UserI__47DBAE45");
-        });
 
        
 

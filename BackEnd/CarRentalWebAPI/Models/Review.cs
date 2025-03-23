@@ -25,4 +25,6 @@ public partial class Review
     [ForeignKey("BookingId")]
     [InverseProperty("Reviews")]
     public virtual Booking Booking { get; set; }
+    public int CarId { get; set; }
+    public virtual Car Car { get; set; }
 }

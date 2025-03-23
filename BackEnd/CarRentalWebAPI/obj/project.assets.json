@@ -922,6 +922,19 @@
           }
         }
       },
+      "Microsoft.Spatial/8.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Spatial.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Spatial.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.SqlServer.Server/1.0.0": {
         "type": "package",
         "compile": {
@@ -3190,6 +3203,19 @@
         "microsoft.openapi.nuspec"
       ]
     },
+    "Microsoft.Spatial/8.2.3": {
+      "sha512": "N8rhHhMojEYdH9P+JG208+s6dpR5P1rVyiGaDB5oV2YTVH+zA5utK3V3V4ytAMLb4GaqOyLyzMOgSLEWM0ulgQ==",
+      "type": "package",
+      "path": "microsoft.spatial/8.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net8.0/Microsoft.Spatial.dll",
+        "lib/net8.0/Microsoft.Spatial.xml",
+        "microsoft.spatial.8.2.3.nupkg.sha512",
+        "microsoft.spatial.nuspec"
+      ]
+    },
     "Microsoft.SqlServer.Server/1.0.0": {
       "sha512": "N4KeF3cpcm1PUHym1RmakkzfkEv3GRMyofVv40uXsQhCQeglr2OHNcUk2WOG51AKpGO8ynGpo9M/kFXSzghwug==",
       "type": "package",
@@ -4281,6 +4307,7 @@
       "Microsoft.EntityFrameworkCore >= 8.0.13",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.13",
+      "Microsoft.Spatial >= 8.2.3",
       "Swashbuckle.AspNetCore >= 7.2.0"
     ]
   },
@@ -4349,6 +4376,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[8.0.13, )"
+          },
+          "Microsoft.Spatial": {
+            "target": "Package",
+            "version": "[8.2.3, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

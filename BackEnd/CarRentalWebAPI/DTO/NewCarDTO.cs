@@ -13,5 +13,6 @@ namespace CarRentalWebAPI.DTO
         public string LicensePlate { get; set; }
 
         public decimal DailyPrice { get; set; }
+        public string EngineType { get; set; }
     }
 }

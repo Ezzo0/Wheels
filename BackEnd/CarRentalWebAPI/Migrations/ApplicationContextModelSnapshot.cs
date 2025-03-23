@@ -57,9 +57,6 @@ namespace CarRentalWebAPI.Migrations
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastLogin")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -158,7 +155,7 @@ namespace CarRentalWebAPI.Migrations
 
                     b.HasIndex(new[] { "UserId" }, "IX_Bookings_User");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.BookingStatus", b =>
@@ -177,7 +174,7 @@ namespace CarRentalWebAPI.Migrations
                     b.HasKey("StatusId")
                         .HasName("PK__BookingS__C8EE2063188E4ADD");
 
-                    b.ToTable("BookingStatuses");
+                    b.ToTable("BookingStatuses", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.Car", b =>
@@ -198,6 +195,12 @@ namespace CarRentalWebAPI.Migrations
                     b.Property<decimal>("DailyPrice")
                         .HasColumnType("decimal(10, 2)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EngineType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -206,8 +209,14 @@ namespace CarRentalWebAPI.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
@@ -215,8 +224,8 @@ namespace CarRentalWebAPI.Migrations
                     b.Property<int>("NumberOfReviews")
                         .HasColumnType("int");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Photos")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -224,33 +233,11 @@ namespace CarRentalWebAPI.Migrations
                     b.HasKey("CarId")
                         .HasName("PK__Cars__68A0342E36BD4C2D");
 
-                    b.HasIndex("OwnerId");
-
                     b.HasIndex(new[] { "LicensePlate" }, "UQ__Cars__026BC15C85E7F6FB")
                         .IsUnique()
                         .HasFilter("[LicensePlate] IS NOT NULL");
 
-                    b.ToTable("Cars");
-                });
-
-            modelBuilder.Entity("CarRentalWebAPI.Models.DocumentType", b =>
-                {
-                    b.Property<int>("DocumentType1")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("DocumentType");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentType1"));
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("DocumentType1")
-                        .HasName("PK__Document__B987255BE8FB0C88");
-
-                    b.ToTable("DocumentTypes");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.Payment", b =>
@@ -289,7 +276,7 @@ namespace CarRentalWebAPI.Migrations
                     b.HasIndex(new[] { "StripePaymentId" }, "UQ__Payments__4DBD220C0B71D024")
                         .IsUnique();
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.PaymentStatus", b =>
@@ -308,7 +295,7 @@ namespace CarRentalWebAPI.Migrations
                     b.HasKey("StatusId")
                         .HasName("PK__PaymentS__C8EE20630E7DC2FF");
 
-                    b.ToTable("PaymentStatuses");
+                    b.ToTable("PaymentStatuses", (string)null);
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.Review", b =>
@@ -319,6 +306,12 @@ namespace CarRentalWebAPI.Migrations
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<Guid>("BookingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("CarId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comment")
@@ -337,46 +330,9 @@ namespace CarRentalWebAPI.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.ToTable("Reviews");
-                });
+                    b.HasIndex("CarId1");
 
-            modelBuilder.Entity("CarRentalWebAPI.Models.UserDocument", b =>
-                {
-                    b.Property<Guid>("DocumentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<int>("DocumentType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StorageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UploadDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getutcdate())");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("VerificationResult")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValueSql("(NULL)");
-
-                    b.HasKey("DocumentId")
-                        .HasName("PK__UserDocu__1ABEEF0FF8AA2080");
-
-                    b.HasIndex("DocumentType");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserDocuments");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -539,16 +495,6 @@ namespace CarRentalWebAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CarRentalWebAPI.Models.Car", b =>
-                {
-                    b.HasOne("CarRentalWebAPI.Models.ApplicationUser", "Owner")
-                        .WithMany("Cars")
-                        .HasForeignKey("OwnerId")
-                        .HasConstraintName("FK__Cars__OwnerId__52593CB8");
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("CarRentalWebAPI.Models.Payment", b =>
                 {
                     b.HasOne("CarRentalWebAPI.Models.Booking", "Booking")
@@ -568,26 +514,13 @@ namespace CarRentalWebAPI.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__Reviews__Booking__6A30C649");
 
+                    b.HasOne("CarRentalWebAPI.Models.Car", "Car")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CarId1");
+
                     b.Navigation("Booking");
-                });
 
-            modelBuilder.Entity("CarRentalWebAPI.Models.UserDocument", b =>
-                {
-                    b.HasOne("CarRentalWebAPI.Models.DocumentType", "DocumentTypeNavigation")
-                        .WithMany("UserDocuments")
-                        .HasForeignKey("DocumentType")
-                        .IsRequired()
-                        .HasConstraintName("FK__UserDocum__Docum__48CFD27E");
-
-                    b.HasOne("CarRentalWebAPI.Models.ApplicationUser", "User")
-                        .WithMany("UserDocuments")
-                        .HasForeignKey("UserId")
-                        .IsRequired()
-                        .HasConstraintName("FK__UserDocum__UserI__47DBAE45");
-
-                    b.Navigation("DocumentTypeNavigation");
-
-                    b.Navigation("User");
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -644,10 +577,6 @@ namespace CarRentalWebAPI.Migrations
             modelBuilder.Entity("CarRentalWebAPI.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Cars");
-
-                    b.Navigation("UserDocuments");
                 });
 
             modelBuilder.Entity("CarRentalWebAPI.Models.Booking", b =>
@@ -665,11 +594,8 @@ namespace CarRentalWebAPI.Migrations
             modelBuilder.Entity("CarRentalWebAPI.Models.Car", b =>
                 {
                     b.Navigation("Bookings");
-                });
 
-            modelBuilder.Entity("CarRentalWebAPI.Models.DocumentType", b =>
-                {
-                    b.Navigation("UserDocuments");
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

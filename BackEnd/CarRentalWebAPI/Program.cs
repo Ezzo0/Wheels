@@ -59,10 +59,12 @@ namespace CarRentalWebAPI
 
 
             builder.Services.AddScoped<ICarRepository, CarRepository>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 
             var app = builder.Build();
 
+            app.UseStaticFiles();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
